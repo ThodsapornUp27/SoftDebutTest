@@ -1,0 +1,53 @@
+﻿@model EmployeeModel
+
+@{
+    ViewData["Title"] = "Add Employee";
+    var departments = ViewBag.Departments as List<Department>;
+}
+
+<form method="post" asp-controller="Home" asp-action="AddEmployee">
+    <div>
+        <label for="EmpNum">รหัสพนังงาน</label><br />
+        <input type="text" id="EmpNum" name="EmpNum" value="@Model.EmpNum" />
+        <span asp-validation-for="EmpNum" class="text-danger"></span>
+    </div>
+    <div>
+        <label for="EmpName">ชื่อพนังงาน</label><br />
+        <input type="text" id="EmpName" name="EmpName" value="@Model.EmpName" />
+        <span asp-validation-for="EmpName" class="text-danger"></span>
+    </div>
+    <div>
+        <label for="DepNo">ตำแหน่ง</label><br />
+        <select id="DepNo" name="DepNo">
+            <option value="">-- กรุณาเลือกตำแหน่ง --</option>
+            @foreach (var dep in departments)
+            {
+                if (dep.DepNo == Model.DepNo)
+                {
+                    <option value="@dep.DepNo" selected="selected">@dep.DepName</option>
+                }
+                else
+                {
+                    <option value="@dep.DepNo">@dep.DepName</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="DepNo" class="text-danger"></span> 
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success mt-3">
+        <strong>@ViewBag.Message</strong><br />
+        รหัสพนังงาน: @ViewBag.EmpNum<br />
+        ชื่อพนังงาน: @ViewBag.EmpName<br />
+        ตำแหน่ง: @ViewBag.DepName
+    </div>
+}
+
+@section Scripts {
+    <!-- เพิ่ม JavaScript สำหรับ Validation -->
+    <partial name="_ValidationScriptsPartial" />
+}
