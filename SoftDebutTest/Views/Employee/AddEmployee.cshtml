@@ -5,7 +5,7 @@
     var departments = ViewBag.Departments as List<Department>;
 }
 
-<form method="post" asp-controller="Home" asp-action="AddEmployee">
+<form method="post" asp-controller="Employee" asp-action="AddEmployee">
     <div>
         <label for="EmpNum">รหัสพนังงาน</label><br />
         <input type="text" id="EmpNum" name="EmpNum" value="@Model.EmpNum" />
